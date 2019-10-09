@@ -1,5 +1,6 @@
 package com.summon23.catalog.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -8,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -15,7 +17,6 @@ import javax.validation.constraints.*;
 @Entity
 @Table(name = "catalog")
 public class Catalog {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,6 +26,9 @@ public class Catalog {
 
     @NotEmpty
     private String description;
+
+    @OneToMany(mappedBy = "catalog")
+    private List<Price> prices;
 
     @CreationTimestamp
     private Date createdAt;
@@ -59,6 +63,10 @@ public class Catalog {
         return description;
     }
 
+    public List<Price> getPrices() { return prices; }
 
+    public void setPrices(List<Price> prices) {
+        this.prices = prices;
+    }
 
 }
