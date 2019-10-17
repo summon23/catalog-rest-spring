@@ -28,6 +28,7 @@ public class CatalogController {
         this.catalogService = catalogService;
     }
 
+    @CrossOrigin(origins = "http://localhost:9000")
     @GetMapping
     public ResponseEntity<List<Catalog>> getAll(@RequestParam(defaultValue = "0") Integer pageNo,
                                 @RequestParam(defaultValue = "10") Integer pageSize,

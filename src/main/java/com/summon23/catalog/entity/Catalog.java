@@ -1,6 +1,5 @@
 package com.summon23.catalog.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -15,36 +14,37 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 @Entity
-@Table(name = "catalog")
+@Table(name = "product_variant")
 public class Catalog {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
-    private String name;
+    private String sku;
 
-    @NotEmpty
-    private String description;
+    private String longName;
+
+    private String primaryImage;
 
     @OneToMany(mappedBy = "catalog")
-    private List<Price> prices;
+    private List<CatalogVendor> catalogVendors;
 
     @CreationTimestamp
     private Date createdAt;
 
     @UpdateTimestamp
-    private Date updateAt;
+    private Date updatedAt;
 
     public Catalog() {
         super();
     }
 
-    public Catalog(Long id, String name, String description) {
+    public Catalog(Long id, String sku) {
         super();
         this.id = id;
-        this.name = name;
-        this.description = description;
+        this.sku = sku;
     }
 
     public Long getId() {
@@ -55,18 +55,51 @@ public class Catalog {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getSku() {
+        return sku;
     }
 
-    public String getDescription() {
-        return description;
+    public void setSku(String sku) {
+        this.sku = sku;
     }
 
-    public List<Price> getPrices() { return prices; }
-
-    public void setPrices(List<Price> prices) {
-        this.prices = prices;
+    public String getLongName() {
+        return longName;
     }
 
+    public void setLongName(String longName) {
+        this.longName = longName;
+    }
+
+    public String getPrimaryImage() {
+        return primaryImage;
+    }
+
+    public void setPrimaryImage(String primaryImage) {
+        this.primaryImage = primaryImage;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public List<CatalogVendor> getCatalogVendors() {
+        return catalogVendors;
+    }
+
+    public void setCatalogVendors(List<CatalogVendor> catalogVendors) {
+        this.catalogVendors = catalogVendors;
+    }
+
+    public void setUpdatedAt(Date updateAt) {
+        this.updatedAt = updateAt;
+    }
 }
