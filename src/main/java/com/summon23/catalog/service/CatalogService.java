@@ -49,4 +49,11 @@ public class CatalogService {
         catalogRepository.deleteById(id);
     }
 
+
+    public Catalog updateName(Catalog catalog, String newName) {
+        catalog.setLongName(newName);
+        catalogRepository.save(catalog);
+        return catalog;
+    }
+
 }
